@@ -1,7 +1,10 @@
-module.exports = {
+export default {
   testEnvironment: 'node',
-  testMatch: [
-    '**/__tests__/backend/**/*.js', // Only run backend tests matching this pattern
-  ],
-  setupFilesAfterEnv: ['./testSetup'], // Continue using your test setup file if needed
+  testMatch: ['**/__tests__/backend/**/*.js'],
+  setupFilesAfterEnv: ['./testSetup'],
+  testEnvironment: 'node',
+  transform: {},
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1',
+  },
 };

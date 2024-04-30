@@ -1,8 +1,12 @@
-// testSetup.js
-process.env.MONGO_URI = process.env.TEST_MONGO_URI; // Override the MONGO_URI
+// Using ES6 import statements
+import dotenv from 'dotenv';
+dotenv.config();
 
-const mongoose = require('mongoose');
-const { MongoMemoryServer } = require('mongodb-memory-server');
+import mongoose from 'mongoose';
+import { MongoMemoryServer } from 'mongodb-memory-server';
+
+// Override the MONGO_URI
+process.env.MONGO_URI = process.env.TEST_MONGO_URI;
 
 let mongoServer;
 

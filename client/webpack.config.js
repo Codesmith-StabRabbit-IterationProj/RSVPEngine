@@ -24,7 +24,15 @@ export default {
           loader: 'babel-loader',
           options: {
             presets: [
-              ['@babel/preset-env', { targets: 'defaults' }],
+              [
+                '@babel/preset-env',
+                {
+                  targets: {
+                    node: 'current',
+                  },
+                  modules: 'commonjs', // This might be necessary if you're not using ES Modules everywhere.
+                },
+              ],
               ['@babel/preset-react', { runtime: 'automatic' }],
             ],
           },

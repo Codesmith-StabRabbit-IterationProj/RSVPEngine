@@ -1,6 +1,7 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import path from 'node:path';
 import express from 'express';
-import 'dotenv/config';
 import connectDB from '../config/db.config.js';
 import router from '../routes/eventRoutes.js';
 
@@ -12,6 +13,11 @@ const port = process.env.PORT || 3000;
 
 app.use(express.static(path.resolve('client/dist')));
 app.use(express.json());
+
+// simple ping route for health check testing
+app.get('/ping', (req, res) => {
+  res.status(200).send('pong');
+});
 
 app.use('/api', router); // direct requests with '/api' to router (see eventRoutes.js)
 
@@ -37,3 +43,10 @@ app.use((err, req, res, next) => {
 app.listen(port, () => {
   console.log(`Express server listening on port ${port}`);
 });
+
+if (process.env.NODE_ENV !== 'test') {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
+
+export default app; // This still allows you to import app for testing
