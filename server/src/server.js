@@ -5,15 +5,18 @@ import connectDB from '../config/db.config.js';
 import router from '../routes/eventRoutes.js';
 import savedRouter from '../routes/savedRouter.js';
 import authRoutes from '../routes/authRoutes.js';
-
+import cors from 'cors';
 connectDB(); // call and run connectDB func
 
 const app = express();
+app.use(cors());
 
 const port = process.env.PORT || 3000;
+// const port = 3000;
 
 app.use(express.static(path.resolve('client/dist')));
 app.use(express.json());
+console.log('before router');
 
 app.get('/ping', (req, res) => {
   res.status(200).send('pong');
@@ -40,7 +43,7 @@ app.get('/', (req, res) => {
 // Unknown/404 route handler
 app.use('*', (req, res) => {
   console.log('404 error handler triggered.');
-  res.status(404).send('Page not found.');
+  res.status(404).json('Page not found.');
 });
 
 // Global error handler
