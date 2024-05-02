@@ -12,18 +12,10 @@ export async function loader({ params }) {
 }
 
 export default function SavedEvents() {
-  // savedEvents is an array of objects
-  /*
-  eventName: { type: String, required: true },
-  startTime: { type: Date, required: true },
-  endTime: { type: Date },
-  location: { type: String },
-  description: { type: String },
-  attendees: [attendeeSchema],
-*/
   const [user, setUser] = useOutletContext();
   const savedEvents = useLoaderData();
-  const event = savedEvents.map((savedEvent) => (
+
+  const eventList = savedEvents.map((savedEvent) => (
     <IndividualEvents
       key={savedEvent._id.toString()}
       eventId={savedEvent._id}
@@ -37,5 +29,16 @@ export default function SavedEvents() {
     />
   ));
 
-  return <div>{event}</div>;
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        flexDirection: 'row',
+      }}
+    >
+      {eventList}
+    </div>
+  );
 }
