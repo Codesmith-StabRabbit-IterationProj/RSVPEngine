@@ -6,7 +6,7 @@ export async function loader({ params }) {
   const { user } = params;
   return fetch(`/api/savedEvents/${user}`)
     .then((data) => {
-      data.json;
+      data.json();
     })
     .catch((err) => console.log(err));
 }
