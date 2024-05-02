@@ -19,6 +19,10 @@ app.get('/ping', (req, res) => {
   res.status(200).send('pong');
 });
 
+// Direct login requests with '/api' to router (see authRoutes.js)
+app.use('/api/login', authRoutes);
+app.use('/api/signup', authRoutes);
+
 // direct requests with '/api/savedEvents/:username' to savedRouter (see savedRoutes.js)
 app.use('/api/savedEvents/:username', savedRouter, (req, res) => {
   if (!res.locals.savedEvents) {
@@ -28,10 +32,6 @@ app.use('/api/savedEvents/:username', savedRouter, (req, res) => {
 });
 
 app.use('/api', router); // direct requests with '/api' to router (see eventRoutes.js)
-
-// Direct login requests with '/api' to router (see authRoutes.js)
-app.use('/api/login', authRoutes)
-app.use('/api/signup', authRoutes)
 
 app.get('/', (req, res) => {
   res.sendFile(path.resolve('client/dist/index.html'));

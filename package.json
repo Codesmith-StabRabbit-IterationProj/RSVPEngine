@@ -48,6 +48,7 @@
     "eslint": "8.57",
     "eslint-plugin-react": "^7.34.1",
     "html-webpack-plugin": "^5.6.0",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jest-puppeteer": "^10.0.1",
