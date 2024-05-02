@@ -3,7 +3,7 @@ import Login from './Login';
 
 const Root = () => (
   <div className='main'>
-    <Login />
+    <EventForm />
   </div>
 );
 

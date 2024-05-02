@@ -4,6 +4,7 @@ import 'dotenv/config';
 import connectDB from '../config/db.config.js';
 import router from '../routes/eventRoutes.js';
 import savedRouter from '../routes/savedRouter.js';
+import authRoutes from '../routes/authRoutes.js';
 
 connectDB(); // call and run connectDB func
 
@@ -27,6 +28,10 @@ app.use('/api/savedEvents/:username', savedRouter, (req, res) => {
 });
 
 app.use('/api', router); // direct requests with '/api' to router (see eventRoutes.js)
+
+// Direct login requests with '/api' to router (see authRoutes.js)
+app.use('/api/login', authRoutes)
+app.use('/api/signup', authRoutes)
 
 app.get('/', (req, res) => {
   res.sendFile(path.resolve('client/dist/index.html'));

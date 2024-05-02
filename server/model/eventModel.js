@@ -1,12 +1,12 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema
 
 // attendeeSchema purpose: create/handle RSVP responses, individual attendee responses will be stored in Array, see 'eventSchema' below
 const attendeeSchema = new Schema({
   name: { type: String, required: true },
-  response: { type: String },
-});
+  response: { type: String }
+})
 
 // eventSchema purpose: create new events, only eventName and startTime are required fields
 const eventSchema = new Schema({
@@ -16,7 +16,7 @@ const eventSchema = new Schema({
   endTime: { type: Date },
   location: { type: String },
   description: { type: String },
-  attendees: [attendeeSchema],
-});
+  attendees: [attendeeSchema]
+})
 
-export default mongoose.model('Event', eventSchema);
+export default mongoose.model('Event', eventSchema)

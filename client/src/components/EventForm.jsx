@@ -1,7 +1,6 @@
 import PrimaryButton from './PrimaryButton';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useOutletContext } from 'react-router-dom';
+import { Link, useNavigate, useOutletContext } from 'react-router-dom';
 
 const EventForm = () => {
   const [user, setUser] = useOutletContext();
@@ -16,6 +15,7 @@ const EventForm = () => {
   const [showLink, setShowLink] = useState(false);
 
   const [eventId, setEventId] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log(`event id is ${eventId}`);
@@ -38,6 +38,7 @@ const EventForm = () => {
       location: formData.location,
       description: formData.description,
       attendees: [],
+      username: user,
     };
     console.log('data to be sent:', data);
     fetch('/api/create', {
@@ -114,6 +115,7 @@ const EventForm = () => {
         <PrimaryButton text={'Create event'} />
       </form>
       <div>{showLink && <Link to={`e/${eventId}`}>Event Link</Link>}</div>
+      <button onClick={() => navigate(`e/${user}`)}>Show saved events</button>
     </div>
   );
 };

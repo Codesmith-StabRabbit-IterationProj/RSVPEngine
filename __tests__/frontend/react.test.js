@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, Link, MemoryRouter, RouterProvider } from 'react-router-dom';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, getAllByRole } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../../client/src/App.jsx';
 import Attendee from '../../client/src/components/Attendee';
@@ -57,35 +57,35 @@ describe('Unit testing create events components', () => {
 });
 
 describe('Unit testing eventapp components', () => {
-  // let eventName; // heading 0
-  // let startTime; // heading 1
-  // let endTime; // heading 1
-  // let location; // heading 2
-  // let description; // heading 3
-  // // heading 4 is just text that will not be used
-  // let attendeeName;
-  // let attendees = [];
-  // let headers;
+  let eventName; // heading 0
+  let startTime; // heading 1
+  let endTime; // heading 1
+  let location; // heading 2
+  let description; // heading 3
+  // heading 4 is just text that will not be used
+  let attendeeName;
+  let attendees = [];
+  let headers;
   /* as soon as we try to render EventApp component,
   we get an error when we run the test because of useLoaderData.
   it tries to connect to backend which isn't setup in frontend testing
   */
-  // beforeEach(() => {
-  //   const state = {
-  //     eventName: 'picnic',
-  //     startTime: '2024-04-30T18:36',
-  //     endTime: '2024-05-01T18:36',
-  //     location: 'nyc',
-  //     description: 'study date',
-  //     attendeeName: 'dannyphantom',
-  //     headers: getAllByRole('heading'),
-  //   };
-  //   render(
-  //     <MemoryRouter initialEntries={['/']}>
-  //       <RouterProvider router={router} />
-  //     </MemoryRouter>,
-  //   );
-  // });
+  beforeEach(() => {
+    const state = {
+      eventName: 'picnic',
+      startTime: '2024-04-30T18:36',
+      endTime: '2024-05-01T18:36',
+      location: 'nyc',
+      description: 'study date',
+      attendeeName: 'dannyphantom',
+      headers: getAllByRole('heading'),
+    };
+    render(
+      // <MemoryRouter initialEntries={['/']}>
+      //   <RouterProvider router={router} />
+      // </MemoryRouter>,
+    );
+  });
   // TODO:
   // 2. test rendering date/time
   // 3. test updating name field
@@ -94,4 +94,14 @@ describe('Unit testing eventapp components', () => {
   // 6. test Attendee response and name to match input
   // it('Event name matches user selection'), () => {};
   // it('Date And Time matches user selection'), () => {};
+  it('Attendee response and name to match input', () => {
+    let name = 'Yams'
+    let response = 'Maybe'
+    render(<Attendee />)
+
+    let allDiv = getAllByRole('div')
+    
+    expect(screen.allDiv[0].toHaveTextContent('Yams'))
+
+  })
 });

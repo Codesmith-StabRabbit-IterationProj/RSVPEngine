@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import Attendee from './Attendee.jsx';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useNavigate } from 'react-router-dom';
 
 export async function loader({ params }) {
+  console.log('params:', params);
   // make get request here
   const { eventId } = params;
   return fetch(`/api/event/${eventId}`)
@@ -23,6 +24,7 @@ const EventApp = () => {
   const [attendeeName, setAttendeeName] = useState('');
   const [attendees, setAttendees] = useState(eventInfo.attendees || []);
   const [user, setUser] = useOutletContext();
+  const navigate = useNavigate();
 
   // setEventName(eventInfo.eventName);
 
@@ -82,6 +84,7 @@ const EventApp = () => {
         <h1 className='att'>Attendees</h1>
         <div className='attendees'>{attendeesList}</div>
       </div>
+      <button onClick={() => navigate(`e/${user}`)}>Show saved events</button>
     </div>
   );
 };

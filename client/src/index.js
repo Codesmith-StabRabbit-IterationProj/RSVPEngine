@@ -7,6 +7,8 @@ import Root from './components/Root.jsx';
 import './stylesheets/styles.css';
 import { loader as eventLoader } from './components/EventApp.jsx';
 import EventForm from './components/EventForm.jsx';
+import Signup from './components/Signup.jsx';
+import SavedEvents from './components/SavedEvents.jsx';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,15 @@ const router = createBrowserRouter([
       {
         path: '/form',
         element: <EventForm />,
+      },
+      {
+        path: '/signup',
+        element: <Signup />,
+      },
+      {
+        path: 'e/:user',
+        loader: eventLoader,
+        element: <SavedEvents />,
       },
       {
         path: 'e/:eventId',
