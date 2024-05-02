@@ -21,7 +21,7 @@ app.get('/ping', (req, res) => {
   res.status(200).send('pong');
 });
 
-// // Direct login requests with '/api' to router (see authRoutes.js)
+// // Direct login requests with '/auth' to router (see authRoutes.js)
 app.use('/auth', authRoutes);
 
 // // direct requests with '/api/savedEvents/:username' to savedRouter (see savedRoutes.js)
