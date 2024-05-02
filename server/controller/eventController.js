@@ -40,7 +40,8 @@ eventController.createEvent = async (req, res, next) => {
 eventController.getEvent = async (req, res, next) => {
   // deconstruct the eventId from request parameters
   const { eventId } = req.params;
-  // console.log(eventId);
+  console.log('rp', req.params);
+  console.log('EventId', eventId);
 
   // use the eventId to query the database (to find the event)
   // expect response to include available data associated with eventId
