@@ -32,13 +32,13 @@ const EventForm = () => {
       return;
     }
     const data = {
+      username: user,
       eventName: formData.eventName,
       startTime: new Date(formData.startTime).toISOString(),
       endTime: formData.endTime ? new Date(formData.endTime).toISOString() : '',
       location: formData.location,
       description: formData.description,
       attendees: [],
-      username: user,
     };
     console.log('data to be sent:', data);
     fetch('/api/create', {
@@ -114,8 +114,8 @@ const EventForm = () => {
         />
         <PrimaryButton text={'Create event'} />
       </form>
-      <div>{showLink && <Link to={`e/${eventId}`}>Event Link</Link>}</div>
-      <button onClick={() => navigate(`e/${user}`)}>Show saved events</button>
+      <div>{showLink && <Link to={`/e/${eventId}`}>Event Link</Link>}</div>
+      <button onClick={() => navigate(`/user/${user}`)}>Show saved events</button>
     </div>
   );
 };

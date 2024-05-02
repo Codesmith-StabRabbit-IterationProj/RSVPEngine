@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import Attendee from './Attendee.jsx';
 import { useOutletContext, useNavigate } from 'react-router-dom';
+// import EventForm from './EventForm.jsx';
 
 export async function loader({ params }) {
-  console.log('params:', params);
   // make get request here
   const { eventId } = params;
   return fetch(`/api/event/${eventId}`)
@@ -25,6 +25,7 @@ const EventApp = () => {
   const [attendees, setAttendees] = useState(eventInfo.attendees || []);
   const [user, setUser] = useOutletContext();
   const navigate = useNavigate();
+  console.log('user', user);
 
   // setEventName(eventInfo.eventName);
 
@@ -84,7 +85,8 @@ const EventApp = () => {
         <h1 className='att'>Attendees</h1>
         <div className='attendees'>{attendeesList}</div>
       </div>
-      <button onClick={() => navigate(`e/${user}`)}>Show saved events</button>
+      <button onClick={() => navigate(`/user/${user}`)}>Show saved events</button>
+      <button onClick={() => navigate(`/form`)}>Add a new event</button>
     </div>
   );
 };

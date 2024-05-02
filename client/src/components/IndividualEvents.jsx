@@ -1,4 +1,5 @@
 import { readNextDescriptor } from '@testing-library/user-event/dist/cjs/utils/index.js';
+import { Link } from 'react-router-dom';
 
 export default function IndividualEvents(props) {
   const addToGoogleCalendar = () => {
@@ -38,7 +39,7 @@ export default function IndividualEvents(props) {
   // 2024-04-30T18:36
 
   const startTime = () => {
-    const time = newDate(props.startTime);
+    const time = new Date(props.startTime);
     const options = {
       month: '2-digit',
       day: '2-digit',
@@ -50,7 +51,7 @@ export default function IndividualEvents(props) {
   };
 
   const endTime = () => {
-    const time = newDate(props.endTime);
+    const time = new Date(props.endTime);
     const options = {
       month: '2-digit',
       day: '2-digit',
@@ -61,12 +62,15 @@ export default function IndividualEvents(props) {
     return time.toLocaleString('en-US', options);
   };
 
+  const startTimereturn = startTime();
+  const endTimereturn = endTime();
+
   return (
     <div>
-      <h1>Event ID: {props.eventId}</h1>
+      <h1>{<Link to={`/e/${props.eventId}`}>Event Link</Link>}</h1>
       <h1>Event Name: {props.eventName}</h1>
       {/* probably need to convert time to a different format to display */}
-      <h1>Event Duration: {`${startTime} - ${endTime}`}</h1>
+      {/* <h1>Event Duration: {`${startTime()}` - `${endTime()}`}</h1> */}
       <h1>Event Location: {props.location}</h1>
       <h1>Event Description: {props.description}</h1>
       <h1>
