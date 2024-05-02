@@ -11,10 +11,10 @@ router.post('/login', userController.findUserByUsernameAndPassword, (req, res) =
 });
 
 // Route for user signup
-router.post('/signup', (req, res) => {
+router.post('/signup', userController.createUser, (req, res) => {
   // Respond with status 200 and JSON data of the newly created user
   console.log('inside router');
-  res.status(200).json('hello from signup route');
+  res.status(200).json(res.locals.signup);
 });
 
 export default router;
