@@ -52,9 +52,12 @@ export default function Login() {
           <label>Password: </label>
           <input type='password' onChange={handlePassword} value={password}></input>
         </div>
-        <button type='submit'>Login</button>
+        <button className='btn-primary' type='submit'>
+          Login
+        </button>
       </form>
       <button
+        className='btn-primary'
         onClick={() => {
           navigate('/signup');
         }}

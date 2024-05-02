@@ -1,5 +1,6 @@
 import React from 'react';
 import { Router, Link, MemoryRouter, RouterProvider } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { render, screen, cleanup, getAllByRole } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../../client/src/App.jsx';
@@ -10,11 +11,21 @@ import PrimaryButton from '../../client/src/components/PrimaryButton';
 import Root from '../../client/src/components/Root';
 import router from '../../client/src/index';
 
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => jest.fn(),
+  useOutletContext: () => [{ name: 'Jane Doe' }, jest.fn()],
+}));
+
 describe('Unit testing create events components', () => {
   let role;
   let showLink;
   beforeEach(() => {
-    render(<EventForm />);
+    render(
+      <BrowserRouter>
+        <EventForm />
+      </BrowserRouter>,
+    );
     role = screen.getAllByRole('textbox');
     showLink = false;
   });
@@ -80,11 +91,10 @@ describe('Unit testing eventapp components', () => {
       attendeeName: 'dannyphantom',
       headers: getAllByRole('heading'),
     };
-    render(
-      // <MemoryRouter initialEntries={['/']}>
-      //   <RouterProvider router={router} />
-      // </MemoryRouter>,
-    );
+    render();
+    // <MemoryRouter initialEntries={['/']}>
+    //   <RouterProvider router={router} />
+    // </MemoryRouter>,
   });
   // TODO:
   // 2. test rendering date/time
@@ -95,13 +105,12 @@ describe('Unit testing eventapp components', () => {
   // it('Event name matches user selection'), () => {};
   // it('Date And Time matches user selection'), () => {};
   it('Attendee response and name to match input', () => {
-    let name = 'Yams'
-    let response = 'Maybe'
-    render(<Attendee />)
+    let name = 'Yams';
+    let response = 'Maybe';
+    render(<Attendee />);
 
-    let allDiv = getAllByRole('div')
-    
-    expect(screen.allDiv[0].toHaveTextContent('Yams'))
+    let allDiv = getAllByRole('div');
 
-  })
+    expect(screen.allDiv[0].toHaveTextContent('Yams'));
+  });
 });

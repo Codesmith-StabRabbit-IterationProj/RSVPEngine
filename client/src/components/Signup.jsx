@@ -52,7 +52,9 @@ export default function Signup() {
           <label>Password: </label>
           <input type='password' onChange={handlePassword} value={password}></input>
         </div>
-        <button type='submit'>Signup</button>
+        <button className='btn-primary' type='submit'>
+          Signup
+        </button>
       </form>
     </div>
   );

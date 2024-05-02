@@ -1,4 +1,4 @@
-import { readNextDescriptor } from '@testing-library/user-event/dist/cjs/utils/index.js';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function IndividualEvents(props) {
@@ -18,25 +18,17 @@ export default function IndividualEvents(props) {
   };
 
   // only showing attendees that responded yes
-  const yesAttendees = props.attendees.map((attendee) => {
-    if (attendee.response === 'Yes') {
-      return attendee.name;
-    }
-  });
+  const yesAttendees = props.attendees
+    .filter((attendee) => attendee.response === 'Yes')
+    .map((attendee) => attendee.name);
 
-  const noAttendees = props.attendees.map((attendee) => {
-    if (attendee.response === 'No') {
-      return attendee.name;
-    }
-  });
+  const noAttendees = props.attendees
+    .filter((attendee) => attendee.response === 'No')
+    .map((attendee) => attendee.name);
 
-  const maybeAttendees = props.attendees.map((attendee) => {
-    if (attendee.response === 'Maybe') {
-      return attendee.name;
-    }
-  });
-
-  // 2024-04-30T18:36
+  const maybeAttendees = props.attendees
+    .filter((attendee) => attendee.response === 'Maybe')
+    .map((attendee) => attendee.name);
 
   const startTime = () => {
     const time = new Date(props.startTime);
@@ -67,33 +59,37 @@ export default function IndividualEvents(props) {
 
   return (
     <div>
-      <h1>{<Link to={`/e/${props.eventId}`}>Event Link</Link>}</h1>
-      <h1>Event Name: {props.eventName}</h1>
-      {/* probably need to convert time to a different format to display */}
-      {/* <h1>Event Duration: {`${startTime()}` - `${endTime()}`}</h1> */}
-      <h1>Event Location: {props.location}</h1>
-      <h1>Event Description: {props.description}</h1>
       <h1>
-        Event Attendees:
-        <p>
-          Going
-          <br />
-          {yesAttendees.join(', ')}
-        </p>
-        <p>
-          Not Going
-          <br />
-          {noAttendees.join(', ')}
-        </p>
-        <p>
-          Maybe
-          <br />
-          {maybeAttendees.join(', ')}
-        </p>
-        <button onClick={addToGoogleCalendar}>Add to Google Calendar</button>
+        <Link to={`/e/${props.eventId}`}>Event Link</Link>
       </h1>
+      <div>
+        <h2 className='bold'>Event Name:</h2>
+        <p>{props.eventName}</p>
+      </div>
+      <div>
+        <h2 className='bold'>Event Location:</h2>
+        <p>{props.location}</p>
+      </div>
+      <div>
+        <h2 className='bold'>Event Description:</h2>
+        <p>{props.description}</p>
+      </div>
+      <div>
+        <h2 className='bold'>Event Attendees:</h2>
+        <div>
+          <h3>Going</h3>
+          <p>{yesAttendees.join(', ')}</p>
+        </div>
+        <div>
+          <h3>Not Going</h3>
+          <p>{noAttendees.join(', ')}</p>
+        </div>
+        <div>
+          <h3>Maybe</h3>
+          <p>{maybeAttendees.join(', ')}</p>
+        </div>
+        <button onClick={addToGoogleCalendar}>Add to Google Calendar</button>
+      </div>
     </div>
   );
 }
-
-// attendees is an array of objects that has name and response
