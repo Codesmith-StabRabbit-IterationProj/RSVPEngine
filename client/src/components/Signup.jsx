@@ -18,14 +18,14 @@ export default function Signup() {
     e.preventDefault();
     try {
       console.log(username, password);
-      const response = await fetch('/api/signup', {
+      const response = await fetch('/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username,
-          password,
+          // username,
+          // password,
         }),
       });
       console.log('res', response);

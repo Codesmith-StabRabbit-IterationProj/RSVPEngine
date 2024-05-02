@@ -16,23 +16,21 @@ const port = process.env.PORT || 3000;
 
 app.use(express.static(path.resolve('client/dist')));
 app.use(express.json());
-console.log('before router');
 
 app.get('/ping', (req, res) => {
   res.status(200).send('pong');
 });
 
-// Direct login requests with '/api' to router (see authRoutes.js)
-app.use('/api/login', authRoutes);
-app.use('/api/signup', authRoutes);
+// // Direct login requests with '/api' to router (see authRoutes.js)
+app.use('/auth', authRoutes);
 
-// direct requests with '/api/savedEvents/:username' to savedRouter (see savedRoutes.js)
-app.use('/api/savedEvents/:username', savedRouter, (req, res) => {
-  if (!res.locals.savedEvents) {
-    return res.status(404).send('No saved results found');
-  }
-  res.status(200).json(res.locals.savedEvents);
-});
+// // direct requests with '/api/savedEvents/:username' to savedRouter (see savedRoutes.js)
+// app.use('/api/savedEvents/:username', savedRouter, (req, res) => {
+//   if (!res.locals.savedEvents) {
+//     return res.status(404).send('No saved results found');
+//   }
+//   res.status(200).json(res.locals.savedEvents);
+// });
 
 app.use('/api', router); // direct requests with '/api' to router (see eventRoutes.js)
 
