@@ -58,8 +58,9 @@ export default {
     ],
     proxy: [
       {
-        context: ['/api', '/auth'],
+        context: ['/api', '/auth', '/user'],
         target: 'http://localhost:3000',
+        security: false,
       },
     ],
   },

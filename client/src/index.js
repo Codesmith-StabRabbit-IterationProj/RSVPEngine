@@ -6,6 +6,7 @@ import EventApp from './components/EventApp.jsx';
 import Root from './components/Root.jsx';
 import './stylesheets/styles.css';
 import { loader as eventLoader } from './components/EventApp.jsx';
+import { loader as userLoader } from './components/SavedEvents.jsx';
 import EventForm from './components/EventForm.jsx';
 import Signup from './components/Signup.jsx';
 import SavedEvents from './components/SavedEvents.jsx';
@@ -28,14 +29,14 @@ const router = createBrowserRouter([
         element: <Signup />,
       },
       {
-        path: 'e/:user',
-        loader: eventLoader,
-        element: <SavedEvents />,
-      },
-      {
         path: 'e/:eventId',
         loader: eventLoader,
         element: <EventApp />,
+      },
+      {
+        path: 'user/:user',
+        loader: userLoader,
+        element: <SavedEvents />,
       },
     ],
   },

@@ -24,13 +24,13 @@ app.get('/ping', (req, res) => {
 // // Direct login requests with '/auth' to router (see authRoutes.js)
 app.use('/auth', authRoutes);
 
-// // direct requests with '/api/savedEvents/:username' to savedRouter (see savedRoutes.js)
-// app.use('/api/savedEvents/:username', savedRouter, (req, res) => {
-//   if (!res.locals.savedEvents) {
-//     return res.status(404).send('No saved results found');
-//   }
-//   res.status(200).json(res.locals.savedEvents);
-// });
+// direct requests with '/user/savedEvents/:username' to savedRouter (see savedRoutes.js)
+app.use('/user/savedEvents', savedRouter, (req, res) => {
+  if (!res.locals.savedEvents) {
+    return res.status(404).send('No saved results found');
+  }
+  res.status(200).json(res.locals.savedEvents);
+});
 
 app.use('/api', router); // direct requests with '/api' to router (see eventRoutes.js)
 
@@ -54,7 +54,7 @@ app.use((err, req, res, next) => {
   const errorObj = Object.assign({}, defaultErr, err);
   console.log(`Error Handling Middleware: ${errorObj.log}`);
   console.error(`Error details: ${err.message}`);
-  console.error(err.stack); // stack trace
+  console.error('error stack', err.stack); // stack trace
   if (!res.headersSent) {
     return res.status(errorObj.status).json(errorObj.message);
   } else {
