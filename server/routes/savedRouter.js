@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import Event from '../model/eventModel';
+import Event from '../model/eventModel.js'
 
 router.get('/', async (req, res, next) => {
   try {
