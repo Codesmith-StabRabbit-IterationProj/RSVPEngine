@@ -24,17 +24,17 @@ export default function Signup() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          // username,
-          // password,
+          username,
+          password,
         }),
       });
-      console.log('res', response);
       const signedUp = await response.json(); // true or false
+      console.log('res', signedUp);
       // some conditional to check if login was successful from backend
-      if (signedUp) {
-        navigate('/login');
+      if (signedUp === true) {
+        navigate('/');
       } else {
-        alert('Error signing up account');
+        alert('Username already exists');
       }
     } catch (err) {
       console.log(err);
