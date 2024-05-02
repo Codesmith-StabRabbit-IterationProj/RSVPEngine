@@ -11,7 +11,8 @@
     "build": "NODE_ENV=production webpack --config client/webpack.config.js",
     "lint": "eslint .",
     "test:frontend": "TEST_ENV=frontend jest",
-    "test:backend": "TEST_ENV=backend jest"
+    "test:backend": "TEST_ENV=backend jest",
+    "test:integration": "TEST_ENV=integration jest"
   },
   "repository": {
     "type": "git",

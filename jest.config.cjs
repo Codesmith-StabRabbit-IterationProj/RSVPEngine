@@ -18,6 +18,13 @@ module.exports = async () => {
       testMatch: ['<rootDir>/__tests__/backend/**/*.js'], // Glob pattern to include all JS files in the backend tests directory
       setupFilesAfterEnv: ['<rootDir>/backendTestSetup.cjs'], // Points to a setup file that will run before the tests
     };
+  } else if (process.env.TEST_ENV === 'integration') {
+    return {
+      ...config,
+      testEnvironment: 'jest-environment-jsdom',
+      testMatch: ['<rootDir>/__tests__/integration/login-signup.test.js'],
+      setupFilesAfterEnv: ['<rootDir>/backendTestSetup.cjs'], // Points to a setup file that will run before the tests
+    };
   }
 
   return config; // Default config if no specific environment is set
