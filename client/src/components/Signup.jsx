@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Signup() {
@@ -17,17 +17,19 @@ export default function Signup() {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`/api/signup`, {
+      console.log(username, password);
+      const response = await fetch('/api/signup', {
         method: 'POST',
         headers: {
-          'Content-Type': 'applcation/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           username,
           password,
         }),
       });
-      const signedUp = await response.json(); // response will be array of objects
+      console.log('res', response);
+      const signedUp = await response.json(); // true or false
       // some conditional to check if login was successful from backend
       if (signedUp) {
         navigate('/login');
@@ -40,7 +42,7 @@ export default function Signup() {
   };
   return (
     <div>
-      <h1>Sign Up Page</h1>
+      <h1>Signup Page</h1>
       <form onSubmit={handleSignup}>
         <div>
           <label>Username: </label>
@@ -50,7 +52,7 @@ export default function Signup() {
           <label>Password: </label>
           <input type='password' onChange={handlePassword} value={password}></input>
         </div>
-        <button type='submit'>Sign Up</button>
+        <button type='submit'>Signup</button>
       </form>
     </div>
   );

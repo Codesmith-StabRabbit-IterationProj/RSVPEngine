@@ -5,19 +5,26 @@ import connectDB from '../config/db.config.js';
 import router from '../routes/eventRoutes.js';
 import savedRouter from '../routes/savedRouter.js';
 import authRoutes from '../routes/authRoutes.js';
-
+import cors from 'cors';
 connectDB(); // call and run connectDB func
 
 const app = express();
+app.use(cors());
 
 const port = process.env.PORT || 3000;
+// const port = 3000;
 
 app.use(express.static(path.resolve('client/dist')));
 app.use(express.json());
+console.log('before router');
 
 app.get('/ping', (req, res) => {
   res.status(200).send('pong');
 });
+
+// Direct login requests with '/api' to router (see authRoutes.js)
+app.use('/login', authRoutes);
+app.use('/signup', authRoutes);
 
 // direct requests with '/api/savedEvents/:username' to savedRouter (see savedRoutes.js)
 app.use('/api/savedEvents/:username', savedRouter, (req, res) => {
@@ -29,10 +36,6 @@ app.use('/api/savedEvents/:username', savedRouter, (req, res) => {
 
 app.use('/api', router); // direct requests with '/api' to router (see eventRoutes.js)
 
-// Direct login requests with '/api' to router (see authRoutes.js)
-app.use('/api/login', authRoutes)
-app.use('/api/signup', authRoutes)
-
 app.get('/', (req, res) => {
   res.sendFile(path.resolve('client/dist/index.html'));
 });
@@ -40,7 +43,7 @@ app.get('/', (req, res) => {
 // Unknown/404 route handler
 app.use('*', (req, res) => {
   console.log('404 error handler triggered.');
-  res.status(404).send('Page not found.');
+  res.status(404).json('Page not found.');
 });
 
 // Global error handler
