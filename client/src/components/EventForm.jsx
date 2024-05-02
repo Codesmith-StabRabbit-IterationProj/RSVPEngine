@@ -112,10 +112,12 @@ const EventForm = () => {
           value={formData.description}
           onChange={handleChange}
         />
-        <PrimaryButton text={'Create event'} />
+        <PrimaryButton className='btn-primary' text={'Create event'} />
       </form>
       <div>{showLink && <Link to={`/e/${eventId}`}>Event Link</Link>}</div>
-      <button onClick={() => navigate(`/user/${user}`)}>Show saved events</button>
+      <button className='btn-primary' onClick={() => navigate(`/user/${user}`)}>
+        Show saved events
+      </button>
     </div>
   );
 };

@@ -84,9 +84,13 @@ const EventApp = () => {
         <h1>{description}</h1>
         <h1 className='att'>Attendees</h1>
         <div className='attendees'>{attendeesList}</div>
+        <button className='btn-primary' onClick={() => navigate(`/user/${user}`)}>
+          Show saved events
+        </button>
+        <button className='btn-primary' onClick={() => navigate(`/form`)}>
+          Add a new event
+        </button>
       </div>
-      <button onClick={() => navigate(`/user/${user}`)}>Show saved events</button>
-      <button onClick={() => navigate(`/form`)}>Add a new event</button>
     </div>
   );
 };
