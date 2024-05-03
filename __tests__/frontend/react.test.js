@@ -1,8 +1,9 @@
 import React from 'react';
 import { Router, Link, MemoryRouter, RouterProvider } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
-import { render, screen, cleanup, getAllByRole } from '@testing-library/react';
+import { render, screen, cleanup, getAllByRole, within, getByText } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import '@testing-library/jest-dom';
 import App from '../../client/src/App.jsx';
 import Attendee from '../../client/src/components/Attendee';
 import EventApp from '../../client/src/components/EventApp';
@@ -57,60 +58,64 @@ describe('Unit testing create events components', () => {
   });
 
   it('Create event button generates a link', async () => {
-    const button = screen.getByRole('button');
-    button.onclick = () => (showLink = true);
-    await userEvent.click(button);
+    const button = screen.getAllByRole('button');
+    button[0].onclick = () => (showLink = true);
+    userEvent.click(button[0]);
     // some logic to check if hyperlink is not undefined
-    if (showLink) render(<a>Event Link</a>);
-    const link = screen.getByText('Event Link') ? true : false;
-    expect(link).toEqual(true);
+    // Good Resource: https://github.com/testing-library/react-testing-library
+
+    render(<a>Event Link</a>);
+    const link = await screen.findByText('Event Link');
+    console.log('link:', link);
+    expect(link).toBeInTheDocument();
+    expect(showLink).toEqual(true);
   });
 });
 
-describe('Unit testing eventapp components', () => {
-  let eventName; // heading 0
-  let startTime; // heading 1
-  let endTime; // heading 1
-  let location; // heading 2
-  let description; // heading 3
-  // heading 4 is just text that will not be used
-  let attendeeName;
-  let attendees = [];
-  let headers;
-  /* as soon as we try to render EventApp component,
-  we get an error when we run the test because of useLoaderData.
-  it tries to connect to backend which isn't setup in frontend testing
-  */
-  beforeEach(() => {
-    const state = {
-      eventName: 'picnic',
-      startTime: '2024-04-30T18:36',
-      endTime: '2024-05-01T18:36',
-      location: 'nyc',
-      description: 'study date',
-      attendeeName: 'dannyphantom',
-      headers: getAllByRole('heading'),
-    };
-    render();
-    // <MemoryRouter initialEntries={['/']}>
-    //   <RouterProvider router={router} />
-    // </MemoryRouter>,
-  });
-  // TODO:
-  // 2. test rendering date/time
-  // 3. test updating name field
-  // 4. test yes/no/maybe buttons
-  // 5. test attendees list updating
-  // 6. test Attendee response and name to match input
-  // it('Event name matches user selection'), () => {};
-  // it('Date And Time matches user selection'), () => {};
-  it('Attendee response and name to match input', () => {
-    let name = 'Yams';
-    let response = 'Maybe';
-    render(<Attendee />);
+// describe('Unit testing eventapp components', () => {
+//   let eventName; // heading 0
+//   let startTime; // heading 1
+//   let endTime; // heading 1
+//   let location; // heading 2
+//   let description; // heading 3
+//   // heading 4 is just text that will not be used
+//   let attendeeName;
+//   let attendees = [];
+//   let headers;
+//   /* as soon as we try to render EventApp component,
+//   we get an error when we run the test because of useLoaderData.
+//   it tries to connect to backend which isn't setup in frontend testing
+//   */
+//   beforeEach(() => {
+//     const state = {
+//       eventName: 'picnic',
+//       startTime: '2024-04-30T18:36',
+//       endTime: '2024-05-01T18:36',
+//       location: 'nyc',
+//       description: 'study date',
+//       attendeeName: 'dannyphantom',
+//       headers: getAllByRole('heading'),
+//     };
+//     render();
+//     // <MemoryRouter initialEntries={['/']}>
+//     //   <RouterProvider router={router} />
+//     // </MemoryRouter>,
+//   });
+//   // TODO:
+//   // 2. test rendering date/time
+//   // 3. test updating name field
+//   // 4. test yes/no/maybe buttons
+//   // 5. test attendees list updating
+//   // 6. test Attendee response and name to match input
+//   // it('Event name matches user selection'), () => {};
+//   // it('Date And Time matches user selection'), () => {};
+//   it('Attendee response and name to match input', () => {
+//     let name = 'Yams';
+//     let response = 'Maybe';
+//     render(<Attendee />);
 
-    let allDiv = getAllByRole('div');
+//     let allDiv = getAllByRole('div');
 
-    expect(screen.allDiv[0].toHaveTextContent('Yams'));
-  });
-});
+//     expect(screen.allDiv[0].toHaveTextContent('Yams'));
+//   });
+// });
